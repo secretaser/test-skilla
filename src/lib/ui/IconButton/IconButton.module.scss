@@ -1,0 +1,18 @@
+.IconButton {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.icon {
+    transform: rotate(0);
+    transition: all 0.1s;
+    fill: var(--svg-fill);
+    &:hover {
+        fill: var(--svg-active-fill);
+    }
+}
+.pressed {
+    .icon {
+        transform: rotate(180deg);
+    }
+}

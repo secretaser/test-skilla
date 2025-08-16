@@ -1,0 +1,15 @@
+/* @import 'resetStyles'; */
+
+:root {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  --svg-fill: #ADBFDF;
+  --svg-active-fill: #002CFB;
+
+}
+svg {
+  fill: var(--svg-fill)
+}
+svg:hover {
+    fill: var(--svg-active-fill)
+}
