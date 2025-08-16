@@ -1,0 +1,18 @@
+.Select {
+    position: relative;
+}
+.options {
+    position: absolute;
+    top: 100%;
+    background-color: var(--element-bg-color);
+    padding: 4px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 133px;
+    box-shadow: 0 4px 20px 0 rgba(0,0,0,0.08);
+}
+.option {
+    padding: 9px 12px;
+    color: var(--text-main-color);
+    cursor: pointer;
+}

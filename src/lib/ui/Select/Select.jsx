@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
-import "./Select.module.scss";
+import s from "./Select.module.scss";
 import { IconButton } from "../IconButton/IconButton";
+import { Text } from "../Text/Text";
 
 export function Select({ options, onChange, label }) {
     const [open, setOpen] = useState(false);
@@ -27,19 +28,19 @@ export function Select({ options, onChange, label }) {
     };
 
     return (
-        <div className="call-type-select" ref={ref}>
-            <IconButton state={open} label={label} onClick={() => setOpen(!open)} />
+        <div className={s.Select} ref={ref}>
+            <IconButton state={open} size={'s'} label={label} color={label === 'Все типы' ? 'secondary' : 'active'} onClick={() => setOpen(!open)} />
 
             {open && (
-                <div className="call-type-select__menu">
+                <div
+                    className={s.options}
+                >
                     {options.map((opt) => (
                         <div
-                            key={opt.value}
-                            className={`call-type-select__item ${selected === opt.value ? "active" : ""
-                                }`}
+                            className={s.option}
                             onClick={() => handleSelect(opt)}
                         >
-                            {opt.label}
+                            <Text key={opt.value} label={opt.label} size={'xs'} />
                         </div>
                     ))}
                 </div>

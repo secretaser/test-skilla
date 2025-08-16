@@ -1,3 +1,25 @@
 .RatingCard {
-    
+    font-size: 14px;
+    padding: 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+.rating-excellent {
+    border: 1px solid #28A879;
+    color: #00A775;
+    background-color: #DBF8EF;
+}
+.rating-good {
+    border: 1px solid #ADBFDF;
+    color: #122945;
+    background-color: #D8E4FB;
+}
+.rating-bad {
+    border: 1px solid #EA1A4F;
+    color: #EA1A4F;
+    background-color: #FEE9EF;
+}
+.rating-no-script {
+    color: #EA1A4F;
+    padding: 0;
 }

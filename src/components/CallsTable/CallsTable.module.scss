@@ -1,0 +1,122 @@
+.CallsTable {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.wrapper {
+    width: 1440px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 80px;
+    padding-bottom: 120px;
+    gap: 16px;
+}
+.filters {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.inOutFilters {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: start;
+}
+.table {
+    background-color: var(--element-bg-color);
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    border-collapse:collapse;
+}
+.row {
+    .audio {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+        right: 40px;
+        opacity: 0;
+    }
+    box-shadow: 0px -1px 0px 0px var(--active-line-bg-color);
+    transition: all 0.1s;
+    td {
+        position: relative;
+        padding-top: 10px;
+        padding-bottom: 10px;   
+        border: none;
+    }
+    &:hover {
+        // background-color: var(--active-line-bg-color);
+        background-color: rgba(212, 223, 243, 0.17);
+        .audio {
+            opacity: 1;
+        }
+    }
+}
+.thead {
+    padding: 20px;
+}
+.headerRow {
+    padding: 20px;
+}
+.headerTh {
+    height: 65px;
+}
+.typeHeader {
+    width: 94px;
+    padding-left: 40px;
+}
+.dateHeader {
+    width: 88px;
+}
+.empHeader {
+width: 129px;
+}
+.numHeader {
+width: 325px;
+}
+.srcHeader {
+width: 214px;
+}
+.rateHeader {
+width: 160px;
+}
+.durationHeader {
+// width: 110px;
+display: flex;
+justify-content: end;
+padding-right: 19px;
+}
+.callStatusTd {
+    padding-left: 40px;
+}
+.recordTd {
+    padding-right: 40px;
+}
+.img {
+    border-radius: 50%;
+    overflow: hidden;
+}
+.dayCountTd {
+    height: 80px;
+    position: relative;
+}
+.dayCount {
+    // margin: 40px 0 17px 40px;
+    bottom: 17px;
+    left: 40px;
+    position: absolute;
+    display: flex;
+    gap: 2px;
+    align-items: flex-start;
+}
+.count {
+    position: relative;
+    bottom: 2px;
+}
+.loading {
+    padding: 20px;
+}

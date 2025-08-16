@@ -4,13 +4,12 @@ import s from "./DateRangeSelect.module.scss";
 import Arrow from '~/assets/icons/arrowUp.svg?react'
 import CalendarIcon from '~/assets/icons/calendar.svg?react'
 
-
 const options = [
     { label: "3 дня", value: "3d" },
     { label: "Неделя", value: "7d" },
     { label: "Месяц", value: "1m" },
     { label: "Год", value: "1y" },
-    { label: "Указать даты", value: "custom" },
+    // { label: "Указать даты", value: "custom" },
 ];
 
 export function DateRangeSelect({ onChange }) {
@@ -52,7 +51,7 @@ export function DateRangeSelect({ onChange }) {
             if (index - 1 >= 0) {
                 handleSelect(options[index - 1].value)
             } else {
-                handleSelect(options[options.length - 2].value)
+                handleSelect(options[options.length - 1].value)
             }
         }
     }
@@ -60,7 +59,7 @@ export function DateRangeSelect({ onChange }) {
     const handleRightArrow = () => {
         const index = options.findIndex((o) => o.value === selected)
         if (Number.isInteger(index)) {
-            if (index + 1 < options.length - 1) {
+            if (index + 1 < options.length) {
                 handleSelect(options[index + 1].value)
             } else handleSelect(options[0].value)
         }
@@ -72,33 +71,35 @@ export function DateRangeSelect({ onChange }) {
         options.find((o) => o.value === selected)?.label || "Выберите дату";
 
     return (
-        <div className="date-select" ref={ref}>
+        <div className={s.DateRangeSelect} ref={ref}>
             <div className={s.selectButtons}>
                 <Arrow className={s.arrowLeft} onClick={handleLeftArrow} />
-                <div className={s.selectButton}>
-                    <CalendarIcon />
-                    <div
-                        className={s.selectButtonLabel}
-                        onClick={() => setOpen(!open)}>
-                        {currentLabel}
-                    </div>
+                <div className={s.selectButton} onClick={() => setOpen(!open)}>
+                    <CalendarIcon className={open ? s.iconOpen : s.icon} />
+                    <div className={s.dateRangeText}>{currentLabel}</div>
                 </div>
                 <Arrow className={s.arrowRight} onClick={handleRightArrow} />
             </div>
 
             {open && (
-                <div className="date-select__menu">
+                <div className={s.options}>
                     {options.map((opt) => (
                         <div
                             key={opt.value}
-                            className={`date-select__item ${selected === opt.value ? "active" : ""
-                                }`}
+                            className={opt.value === selected ? s.optionActive : s.option}
                             onClick={() => handleSelect(opt.value)}
                         >
                             {opt.label}
                         </div>
                     ))}
-                    <DateRangeCustom onChange={handleCustomChange} />
+                    <div className={s.customDate}>
+                        <div className={s.customDateLabel}>Указать даты</div>
+                        <div className={s.dateInputContainer}>
+                            <DateRangeCustom onChange={handleCustomChange} />
+                            <CalendarIcon className={s.icon} />
+                        </div>
+                    </div>
+
                 </div>
             )}
         </div>
@@ -177,7 +178,7 @@ export function DateRangeCustom({ onChange }) {
                 }
             }}
             overwrite
-            className="date-range-input"
+            className={s.dateInput}
         />
     )
 }

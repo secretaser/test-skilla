@@ -1,0 +1,35 @@
+.Text {
+    font-size: var(--text-size-s);
+    font-weight: normal;
+    text-align: left;
+}
+.xs {
+    font-size: var(--text-size-xs);
+}
+.s {
+    font-size: var(--text-size-s);
+}
+.m {
+    font-size: var(--text-size-m);
+}
+.l {
+    font-size: var(--text-size-l);
+}
+.main {
+    color: var(--text-main-color);
+}
+.secondary {
+    color: var(--text-secondary-color);
+}
+.header {
+    color: var(--text-header-color);
+}
+.active {
+    color: var(--text-pressed-button-color);
+}
+.right {
+    text-align: right;
+}
+.center {
+    text-align: center;
+}

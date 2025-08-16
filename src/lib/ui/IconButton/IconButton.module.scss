@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    gap: 4px;
 }
 .icon {
     transform: rotate(0);
@@ -14,5 +15,6 @@
 .pressed {
     .icon {
         transform: rotate(180deg);
+        fill: var(--svg-active-fill);
     }
 }

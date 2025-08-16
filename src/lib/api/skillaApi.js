@@ -31,6 +31,7 @@ export async function getCalls({
     in_out, // 1 - входящие, 0 - исходящие, "" - все
     sort_by, // date | duration
     order, // ASC | DESC
+    offset,
     limit = 50,
 }) {
 
@@ -40,6 +41,7 @@ export async function getCalls({
         in_out,
         sort_by,
         order,
+        offset,
         limit,
     })
 }

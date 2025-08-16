@@ -1,15 +1,36 @@
-/* @import 'resetStyles'; */
+@import 'resetStyles';
 
 :root {
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   
   --svg-fill: #ADBFDF;
   --svg-active-fill: #002CFB;
+  
 
+  --text-main-color: #122945;
+  --text-secondary-color: #5E7793;
+  --text-header-color: #899CB1;
+  --text-pressed-button-color: #1F46FB;
+
+  --text-size-xs: 12px;
+  --text-size-s: 14px;
+  --text-size-m: 15px;
+  --text-size-l: 16px;
+
+  --bg-color: #F1F4F9;
+  --element-bg-color: #FFFFFF;
+  --active-element-bg-color: #DEE4FF;
+  --active-line-bg-color: #EAF0FA;
+
+  background-color: var(--bg-color);
+  overflow-y: scroll;
 }
 svg {
   fill: var(--svg-fill)
 }
 svg:hover {
     fill: var(--svg-active-fill)
+}
+audio::-webkit-media-controls-enclosure {
+    background-color: var(--active-line-bg-color);
 }
