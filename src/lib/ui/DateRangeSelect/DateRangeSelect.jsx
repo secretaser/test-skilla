@@ -141,7 +141,6 @@ export function DateRangeCustom({ onChange }) {
         const [start, end] = val.split("-")
         if (!start || !end) return
 
-        // убираем плейсхолдеры
         const cleanStart = start.replace(/_/g, "").trim()
         const cleanEnd = end.replace(/_/g, "").trim()
 
