@@ -29,11 +29,10 @@ export function DateRangeSelect({ onChange }) {
     };
 
     const handleCustomChange = (dates) => {
-        console.log(dates);
-
         setCustomRange(dates);
         onChange(dates);
         setOpen(false)
+        setSelected('custom')
     };
 
     const handleLeftArrow = () => {
@@ -128,8 +127,6 @@ export function DateRangeCustom({ onChange }) {
     const [value, setValue] = useState("__.__.__-___.__.__")
 
     const handleAccept = (val) => {
-        setValue(val)
-
         const [start, end] = val.split("-")
         if (!start || !end) return
 
@@ -138,20 +135,16 @@ export function DateRangeCustom({ onChange }) {
 
         if (cleanStart.length < 8 || cleanEnd.length < 8) return
 
-        console.log(cleanStart, cleanEnd);
-
-
         onChange?.({
-            // start: `${cleanStart.slice(6, 8)}-${cleanStart.slice(3, 5)}-20${cleanStart.slice(0, 2)}`,
             start: `${cleanStart.slice(0, 2)}-${cleanStart.slice(3, 5)}-20${cleanStart.slice(6, 8)}`,
-            // end: `${cleanEnd.slice(6, 8)}-${cleanEnd.slice(3, 5)}-20${cleanEnd.slice(0, 2)}`
             end: `${cleanEnd.slice(0, 2)}-${cleanEnd.slice(3, 5)}-20${cleanEnd.slice(6, 8)}`
         })
+        setValue("__.__.__-___.__.__")
     }
 
     return (
         <IMaskInput
-            mask="00.00.00-00.00.00"
+            mask="DD.MM.YY-DD.MM.YY"
             lazy={false}
             placeholderChar="_"
             value={value}
