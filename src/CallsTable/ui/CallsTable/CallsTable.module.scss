@@ -29,7 +29,8 @@
     width: 100%;
     border-radius: 8px;
     overflow: hidden;
-    border-collapse:collapse;
+    border-collapse: collapse;
+    box-shadow: 0 4px 5px 0 var(--element-shadow-color);
 }
 .row {
     .audio {
@@ -49,7 +50,6 @@
         border: none;
     }
     &:hover {
-        // background-color: var(--active-line-bg-color);
         background-color: rgba(212, 223, 243, 0.17);
         .audio {
             opacity: 1;
@@ -85,7 +85,6 @@ width: 214px;
 width: 160px;
 }
 .durationHeader {
-// width: 110px;
 display: flex;
 justify-content: end;
 padding-right: 19px;
@@ -105,7 +104,6 @@ padding-right: 19px;
     position: relative;
 }
 .dayCount {
-    // margin: 40px 0 17px 40px;
     bottom: 17px;
     left: 40px;
     position: absolute;

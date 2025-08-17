@@ -5,7 +5,7 @@
     gap: 4px;
 }
 .icon {
-    transform: rotate(0);
+    transform: rotate(180deg);
     transition: all 0.1s;
     fill: var(--svg-fill);
     &:hover {
@@ -14,7 +14,7 @@
 }
 .pressed {
     .icon {
-        transform: rotate(180deg);
+        transform: rotate(0);
         fill: var(--svg-active-fill);
     }
 }

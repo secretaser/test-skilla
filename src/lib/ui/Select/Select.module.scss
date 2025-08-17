@@ -2,20 +2,9 @@
     position: relative;
 }
 .options, .optionsActive {
-    // position: absolute;
-    // top: 100%;
-    // right: 0;
-    // background-color: var(--element-bg-color);
-    // border: 1px solid var(--active-line-bg-color);
-    // padding: 4px 0;
-    // border-radius: 4px;
-    // overflow: hidden;
-    // box-shadow: 0 4px 20px 0 rgba(0,0,0,0.08);
-    // width: 204px;
     position: absolute;
     top: 100%;
     background-color: var(--element-bg-color);
-    // padding: 4px 0;
     border-radius: 8px;
     overflow: hidden;
     width: 133px;

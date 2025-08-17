@@ -28,7 +28,7 @@ export function Select({ options, onChange, label, selected }) {
             >
                 {options.map((opt) => (
                     <div
-                        // className={s.option}
+                        key={opt.value}
                         className={opt.value === selected ? s.optionActive : s.option}
                         onClick={() => handleSelect(opt)}
                     >

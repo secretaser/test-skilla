@@ -1,5 +1,5 @@
 import classNames from '../../helpers/classNames'
-import Arrow from '~/assets/icons/arrowDown.svg?react'
+import Arrow from '~/assets/icons/arrow.svg?react'
 import s from './IconButton.module.scss'
 import { Text } from '../Text/Text'
 

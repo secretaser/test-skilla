@@ -1,18 +1,25 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { getCalls } from "~/lib/api/skillaApi";
-import { ratingConfig } from "~/lib/consts/ratingConfig";
-import { RatingCard } from "~/components/RatingCard/RatingCard";
+import { getCalls } from "../../model/api/skillaApi";
+import { ratingConfig } from "../../model/consts/ratingConfig";
+import { RatingCard } from "../RatingCard/RatingCard";
 import { IconButton } from "~/lib/ui/IconButton/IconButton";
 import { CallStatusIcon } from "../CallStatusIcon/CallStatusIcon";
 import CrossIcon from '~/assets/icons/cross.svg?react';
 import { DateRangeSelect } from "~/lib/ui/DateRangeSelect/DateRangeSelect";
 import { Select } from "~/lib/ui/Select/Select";
-import { options } from "~/lib/consts/inOutConfig";
-import { useInfiniteScroll } from "../../lib/hooks/useInfiniteScroll/useInfiniteScroll";
-import { Text } from "../../lib/ui/Text/Text";
-import s from './CallsTable.module.scss'
-import classNames from "../../lib/helpers/classNames";
+import { options } from "../../model/consts/inOutConfig";
+import { useInfiniteScroll } from "~/lib/hooks/useInfiniteScroll/useInfiniteScroll";
+import { Text } from "~/lib/ui/Text/Text";
+import classNames from "~/lib/helpers/classNames";
 import { CallAudio } from "../CallAudio/CallAudio";
+import {
+    formatTime,
+    formatYMD,
+    isYesterday,
+    isToday,
+    format
+} from '~/lib/helpers/dateTime'
+import s from './CallsTable.module.scss'
 
 export const CallsTable = () => {
 
@@ -29,16 +36,18 @@ export const CallsTable = () => {
     const [sortBy, setSortBy] = useState("date");
     const [order, setOrder] = useState("DESC");
 
-    const [offset, setOffset] = useState(0);
-    const [hasMore, setHasMore] = useState(true);
+    const [loadParams, setLoadParams] = useState({
+        offset: 0,
+        hasMore: true
+    });
 
     const triggerRef = useRef()
 
     const onScrollEnd = useCallback(() => {
-        if (!isLoading && hasMore) {
-            setOffset(prev => prev + 50);
+        if (!isLoading && loadParams.hasMore) {
+            setLoadParams(prev => ({ ...prev, offset: prev.offset + 50 }))
         }
-    }, [isLoading, hasMore]);
+    }, [isLoading, loadParams.hasMore]);
 
     useInfiniteScroll({
         callback: onScrollEnd,
@@ -47,21 +56,19 @@ export const CallsTable = () => {
     })
 
     useEffect(() => {
-        setOffset(0);
         setCalls([]);
-        setHasMore(true);
-        console.log('nullify evrt');
+        setLoadParams({
+            offset: 0,
+            hasMore: true
+        })
     }, [dateStart, dateEnd, inOut, sortBy, order]);
 
     useEffect(() => {
-        if (hasMore) {
-            console.log('load calls with offset ', offset);
-            loadCalls();
-        }
-    }, [offset]);
+        if (loadParams.hasMore) loadCalls();
+    }, [loadParams]);
 
     const loadCalls = async () => {
-        if (isLoading || !hasMore) return;
+        if (isLoading || !loadParams.hasMore) return;
         setIsLoading(true);
 
         try {
@@ -71,7 +78,7 @@ export const CallsTable = () => {
                 in_out: inOut,
                 sort_by: sortBy,
                 order: order,
-                offset,
+                offset: loadParams.offset
             });
 
             const withRatings = data.results.map(c => ({
@@ -80,13 +87,18 @@ export const CallsTable = () => {
             }));
 
             setCalls(prev => [...prev, ...withRatings]);
-            if (data.results.length < 50) setHasMore(false);
+            if (data.results.length < 50) setLoadParams(prev => ({ ...prev, hasMore: false }))
         } catch (e) {
             console.error(e);
         }
 
         setIsLoading(false);
     };
+
+    const onChangeDates = (dates) => {
+        setDateStart(dates.start)
+        setDateEnd(dates.end)
+    }
 
     const onChangeFilter = (sortParam) => {
         setOrder(prev => {
@@ -99,59 +111,12 @@ export const CallsTable = () => {
         setSortBy(sortParam)
     }
 
-    const formatTime = (seconds) => {
-        if (!seconds) return ''
-        const hrs = Math.floor(seconds / 3600);
-        const mins = Math.floor((seconds % 3600) / 60);
-        const secs = seconds % 60;
-
-        const parts = [];
-        if (hrs > 0) parts.push(String(hrs).padStart(2, '0'));
-        parts.push(String(mins).padStart(2, '0'));
-        parts.push(String(secs).padStart(2, '0'));
-
-        return parts.join(':');
-    }
-
-    function formatYMD(date) {
-        const y = date.getFullYear();
-        const m = String(date.getMonth() + 1).padStart(2, '0');
-        const d = String(date.getDate()).padStart(2, '0');
-        return `${y}-${m}-${d}`;
-    }
-
-    const changeDates = (dates) => {
-        setDateStart(dates.start)
-        setDateEnd(dates.end)
-    }
-
     const onChangeInOut = (value) => {
         setInOut(value)
     }
     const inOutLabel = inOut === '' ?
         'Все типы' : inOut == 1 ?
             'Входящие' : 'Исходящие'
-
-    function isYesterday(date) {
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-
-        return date.getFullYear() === yesterday.getFullYear() &&
-            date.getMonth() === yesterday.getMonth() &&
-            date.getDate() === yesterday.getDate();
-    }
-
-    function isToday(date) {
-        const today = new Date();
-
-        return date.getFullYear() === today.getFullYear() &&
-            date.getMonth() === today.getMonth() &&
-            date.getDate() === today.getDate();
-    }
-
-    function format(date) {
-        return `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}.${date.getFullYear() % 100}`;
-    }
 
     const groupCallsByDate = (calls) => {
         const groups = {};
@@ -169,7 +134,6 @@ export const CallsTable = () => {
         :
         Object.keys(groupedCalls).sort((a, b) => new Date(a) - new Date(b));
 
-
     return (
         <div className={s.CallsTable}>
             <div className={s.wrapper}>
@@ -183,7 +147,7 @@ export const CallsTable = () => {
                             color={'secondary'}
                         />}
                     </div>
-                    <DateRangeSelect onChange={changeDates} />
+                    <DateRangeSelect onChange={onChangeDates} />
                 </div>
 
                 {/* Таблица */}

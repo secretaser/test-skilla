@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getCallRecord } from '~/lib/api/skillaApi.js'
+import { getCallRecord } from '../../model/api/skillaApi.js'
 
 export const CallAudio = ({ recordId, partnershipId, className }) => {
     const [audioUrl, setAudioUrl] = useState(null);

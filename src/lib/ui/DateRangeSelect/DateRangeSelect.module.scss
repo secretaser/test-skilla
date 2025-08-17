@@ -25,7 +25,6 @@
     right: 0;
     background-color: var(--element-bg-color);
     border: 1px solid var(--active-line-bg-color);
-    // padding: 4px 0;
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 4px 20px 0 rgba(0,0,0,0.08);
@@ -68,7 +67,6 @@
 }
 .icon {
     transition: all 0.1s;
-    // flex: 0 0 18px;
 }
 .iconOpen {
     transition: all 0.1s;

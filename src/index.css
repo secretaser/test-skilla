@@ -28,6 +28,7 @@ font-style: normal;
   --element-bg-color: #FFFFFF;
   --active-element-bg-color: #DEE4FF;
   --active-line-bg-color: #EAF0FA;
+  --element-shadow-color: #E9EDF3;
 
   background-color: var(--bg-color);
   overflow-y: scroll;

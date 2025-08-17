@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { IMaskInput } from "react-imask"
 import s from "./DateRangeSelect.module.scss";
-import Arrow from '~/assets/icons/arrowUp.svg?react'
+import Arrow from '~/assets/icons/arrow.svg?react'
 import CalendarIcon from '~/assets/icons/calendar.svg?react'
 
 const options = [
@@ -9,7 +9,6 @@ const options = [
     { label: "Неделя", value: "7d" },
     { label: "Месяц", value: "1m" },
     { label: "Год", value: "1y" },
-    // { label: "Указать даты", value: "custom" },
 ];
 
 export function DateRangeSelect({ onChange }) {
@@ -18,16 +17,6 @@ export function DateRangeSelect({ onChange }) {
     const [customRange, setCustomRange] = useState({ start: "", end: "" });
 
     const ref = useRef(null);
-
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (ref.current && !ref.current.contains(e.target)) {
-                setOpen(false);
-            }
-        };
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
 
     const handleSelect = (val) => {
         setSelected(val);
@@ -40,6 +29,8 @@ export function DateRangeSelect({ onChange }) {
     };
 
     const handleCustomChange = (dates) => {
+        console.log(dates);
+
         setCustomRange(dates);
         onChange(dates);
         setOpen(false)
@@ -128,9 +119,7 @@ function getRange(preset) {
         default:
             break;
     }
-
     const format = (d) => d.toISOString().slice(0, 10);
-    console.log({ start: format(start), end: format(today) });
 
     return { start: format(start), end: format(today) };
 }
@@ -149,9 +138,14 @@ export function DateRangeCustom({ onChange }) {
 
         if (cleanStart.length < 8 || cleanEnd.length < 8) return
 
+        console.log(cleanStart, cleanEnd);
+
+
         onChange?.({
-            start: `20${cleanStart.slice(0, 2)}-${cleanStart.slice(3, 5)}-${cleanStart.slice(6, 8)}`,
-            end: `20${cleanEnd.slice(0, 2)}-${cleanEnd.slice(3, 5)}-${cleanEnd.slice(6, 8)}`
+            // start: `${cleanStart.slice(6, 8)}-${cleanStart.slice(3, 5)}-20${cleanStart.slice(0, 2)}`,
+            start: `${cleanStart.slice(0, 2)}-${cleanStart.slice(3, 5)}-20${cleanStart.slice(6, 8)}`,
+            // end: `${cleanEnd.slice(6, 8)}-${cleanEnd.slice(3, 5)}-20${cleanEnd.slice(0, 2)}`
+            end: `${cleanEnd.slice(0, 2)}-${cleanEnd.slice(3, 5)}-20${cleanEnd.slice(6, 8)}`
         })
     }
 
@@ -163,21 +157,21 @@ export function DateRangeCustom({ onChange }) {
             value={value}
             onAccept={handleAccept}
             blocks={{
-                YY: {
+                DD: {
                     mask: IMask.MaskedRange,
-                    from: 0,
-                    to: 25
+                    from: 1,
+                    to: 31
                 },
                 MM: {
                     mask: IMask.MaskedRange,
                     from: 1,
                     to: 12
                 },
-                DD: {
+                YY: {
                     mask: IMask.MaskedRange,
-                    from: 1,
-                    to: 31
-                }
+                    from: 0,
+                    to: 25
+                },
             }}
             overwrite
             className={s.dateInput}

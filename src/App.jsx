@@ -1,4 +1,4 @@
-import { CallsTable } from '~/components/CallsTable/CallsTable'
+import { CallsTable } from '~/CallsTable/ui/CallsTable/CallsTable'
 import './App.css'
 
 export default function App() {
