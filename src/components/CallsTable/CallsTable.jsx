@@ -177,7 +177,6 @@ export const CallsTable = () => {
                             onClick={() => setInOut('')}
                             Icon={CrossIcon}
                             color={'secondary'}
-
                         />}
                     </div>
                     <DateRangeSelect onChange={changeDates} />
