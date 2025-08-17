@@ -28,23 +28,31 @@ export function Select({ options, onChange, label }) {
     };
 
     return (
-        <div className={s.Select} ref={ref}>
-            <IconButton state={open} size={'s'} label={label} color={label === 'Все типы' ? 'secondary' : 'active'} onClick={() => setOpen(!open)} />
-
-            {open && (
-                <div
-                    className={s.options}
-                >
-                    {options.map((opt) => (
-                        <div
-                            className={s.option}
-                            onClick={() => handleSelect(opt)}
-                        >
-                            <Text key={opt.value} label={opt.label} size={'xs'} />
-                        </div>
-                    ))}
-                </div>
-            )}
+        <div
+            className={s.Select}
+            ref={ref}
+            onMouseEnter={() => setOpen(true)}
+            onMouseLeave={() => setOpen(false)}
+        >
+            <IconButton
+                state={open}
+                size={'s'}
+                label={label}
+                color={label === 'Все типы' ? 'secondary' : 'active'}
+            />
+            <div
+                className={open ? s.optionsActive : s.options}
+            >
+                {options.map((opt) => (
+                    <div
+                        // className={s.option}
+                        className={opt.value === selected ? s.optionActive : s.option}
+                        onClick={() => handleSelect(opt)}
+                    >
+                        <Text key={opt.value} label={opt.label} size={'xs'} />
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

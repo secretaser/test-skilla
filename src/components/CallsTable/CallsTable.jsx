@@ -36,8 +36,6 @@ export const CallsTable = () => {
 
     const onScrollEnd = useCallback(() => {
         if (!isLoading && hasMore) {
-            console.log('onScrollEnd');
-
             setOffset(prev => prev + 50);
         }
     }, [isLoading, hasMore]);
@@ -49,16 +47,13 @@ export const CallsTable = () => {
     })
 
     useEffect(() => {
-        setCalls([]);
         setOffset(0);
+        setCalls([]);
         setHasMore(true);
     }, [dateStart, dateEnd, inOut, sortBy, order]);
 
     useEffect(() => {
-        if (hasMore) {
-            console.log('useEffect');
-            loadCalls();
-        }
+        if (hasMore) loadCalls();
     }, [offset, dateStart, dateEnd, inOut, sortBy, order]);
 
     const loadCalls = async () => {
@@ -181,7 +176,9 @@ export const CallsTable = () => {
                             label={'Очистить фильтры'}
                             onClick={() => setInOut('')}
                             Icon={CrossIcon}
-                            color={'secondary'} />}
+                            color={'secondary'}
+
+                        />}
                     </div>
                     <DateRangeSelect onChange={changeDates} />
                 </div>
@@ -226,7 +223,10 @@ export const CallsTable = () => {
                                     </tr>
                                 }
                                 {groupedCalls[dateKey].map(call => (
-                                    <tr key={call.id} className={s.row}>
+                                    <tr
+                                        key={call.id}
+                                        className={s.row}
+                                    >
                                         <td className={s.callStatusTd}><CallStatusIcon status={call.status} in_out={call.in_out} /></td>
                                         <td><Text label={new Date(call.date).toLocaleTimeString().slice(0, 5)} color={'main'} size={'m'} /></td>
                                         <td><img src={call.person_avatar} className={s.img} /></td>
@@ -252,8 +252,8 @@ export const CallsTable = () => {
                         )}
                     </tbody>
                 </table>
+                {onScrollEnd && <div ref={triggerRef} style={{ width: '100px', height: '1px' }} />}
             </div>
-            {onScrollEnd && <div ref={triggerRef} style={{ width: '100px', height: '1px' }} />}
         </div>
     );
 }

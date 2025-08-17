@@ -19,18 +19,29 @@
 .DateRangeSelect {
     position: relative;
 }
-.options {
+.options, .optionsActive {
     position: absolute;
     top: 100%;
     right: 0;
     background-color: var(--element-bg-color);
     border: 1px solid var(--active-line-bg-color);
-    padding: 4px 0;
+    // padding: 4px 0;
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 4px 20px 0 rgba(0,0,0,0.08);
     z-index: 3;
     width: 204px;
+    transition: all 0.2s;
+}
+.options {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+}
+.optionsActive {
+    pointer-events: all;
+    opacity: 1;
+    transform: translateY(0);
 }
 .option, .optionActive {
     padding: 13px 20px;

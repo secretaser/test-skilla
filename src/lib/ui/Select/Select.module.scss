@@ -1,18 +1,52 @@
 .Select {
     position: relative;
 }
-.options {
+.options, .optionsActive {
+    // position: absolute;
+    // top: 100%;
+    // right: 0;
+    // background-color: var(--element-bg-color);
+    // border: 1px solid var(--active-line-bg-color);
+    // padding: 4px 0;
+    // border-radius: 4px;
+    // overflow: hidden;
+    // box-shadow: 0 4px 20px 0 rgba(0,0,0,0.08);
+    // width: 204px;
     position: absolute;
     top: 100%;
     background-color: var(--element-bg-color);
-    padding: 4px 0;
+    // padding: 4px 0;
     border-radius: 8px;
     overflow: hidden;
     width: 133px;
     box-shadow: 0 4px 20px 0 rgba(0,0,0,0.08);
+    z-index: 3;
+    transition: all 0.2s;
+}
+.options {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+}
+.optionsActive {
+    pointer-events: all;
+    opacity: 1;
+    transform: translateY(0);
+}
+.option, .optionActive {
+    padding: 10px 12px;
+    cursor: pointer;
 }
 .option {
-    padding: 9px 12px;
     color: var(--text-main-color);
-    cursor: pointer;
+    &:hover {
+        background-color: var(--active-element-bg-color);
+        color: var(--text-main-color);
+    }
+}
+.optionActive {
+    color: var(--text-pressed-button-color);
+    &:hover {
+        background-color: var(--active-element-bg-color);
+    }
 }

@@ -71,37 +71,39 @@ export function DateRangeSelect({ onChange }) {
         options.find((o) => o.value === selected)?.label || "Выберите дату";
 
     return (
-        <div className={s.DateRangeSelect} ref={ref}>
+        <div
+            className={s.DateRangeSelect}
+            ref={ref}
+            onMouseEnter={() => setOpen(true)}
+            onMouseLeave={() => setOpen(false)}
+        >
             <div className={s.selectButtons}>
                 <Arrow className={s.arrowLeft} onClick={handleLeftArrow} />
-                <div className={s.selectButton} onClick={() => setOpen(!open)}>
+                <div className={s.selectButton}>
                     <CalendarIcon className={open ? s.iconOpen : s.icon} />
                     <div className={s.dateRangeText}>{currentLabel}</div>
                 </div>
                 <Arrow className={s.arrowRight} onClick={handleRightArrow} />
             </div>
 
-            {open && (
-                <div className={s.options}>
-                    {options.map((opt) => (
-                        <div
-                            key={opt.value}
-                            className={opt.value === selected ? s.optionActive : s.option}
-                            onClick={() => handleSelect(opt.value)}
-                        >
-                            {opt.label}
-                        </div>
-                    ))}
-                    <div className={s.customDate}>
-                        <div className={s.customDateLabel}>Указать даты</div>
-                        <div className={s.dateInputContainer}>
-                            <DateRangeCustom onChange={handleCustomChange} />
-                            <CalendarIcon className={s.icon} />
-                        </div>
+            <div className={open ? s.optionsActive : s.options}>
+                {options.map((opt) => (
+                    <div
+                        key={opt.value}
+                        className={opt.value === selected ? s.optionActive : s.option}
+                        onClick={() => handleSelect(opt.value)}
+                    >
+                        {opt.label}
                     </div>
-
+                ))}
+                <div className={s.customDate}>
+                    <div className={s.customDateLabel}>Указать даты</div>
+                    <div className={s.dateInputContainer}>
+                        <DateRangeCustom onChange={handleCustomChange} />
+                        <CalendarIcon className={s.icon} />
+                    </div>
                 </div>
-            )}
+            </div>
         </div>
     );
 }

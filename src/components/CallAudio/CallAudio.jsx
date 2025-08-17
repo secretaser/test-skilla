@@ -27,5 +27,10 @@ export const CallAudio = ({ recordId, partnershipId, className }) => {
     }
     if (!recordId || !partnershipId) return null;
 
-    return <audio controls src={audioUrl} className={className} onMouseEnter={load} />;
+    return <audio
+        controls
+        src={audioUrl}
+        className={className}
+        onMouseEnter={load}
+    />;
 }
