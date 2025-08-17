@@ -3,26 +3,10 @@ import s from "./Select.module.scss";
 import { IconButton } from "../IconButton/IconButton";
 import { Text } from "../Text/Text";
 
-export function Select({ options, onChange, label }) {
+export function Select({ options, onChange, label, selected }) {
     const [open, setOpen] = useState(false);
-    const [selected, setSelected] = useState("");
-
-
-
-    const ref = useRef(null);
-
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (ref.current && !ref.current.contains(e.target)) {
-                setOpen(false);
-            }
-        };
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
 
     const handleSelect = (option) => {
-        setSelected(option.value);
         setOpen(false);
         onChange(option.value);
     };
@@ -30,7 +14,6 @@ export function Select({ options, onChange, label }) {
     return (
         <div
             className={s.Select}
-            ref={ref}
             onMouseEnter={() => setOpen(true)}
             onMouseLeave={() => setOpen(false)}
         >

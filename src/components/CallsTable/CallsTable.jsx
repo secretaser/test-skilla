@@ -55,7 +55,7 @@ export const CallsTable = () => {
 
     useEffect(() => {
         if (hasMore) {
-            console.log('load calls');
+            console.log('load calls with offset ', offset);
             loadCalls();
         }
     }, [offset]);
@@ -80,7 +80,7 @@ export const CallsTable = () => {
             }));
 
             setCalls(prev => [...prev, ...withRatings]);
-            if (!data.results.length) setHasMore(false);
+            if (data.results.length < 50) setHasMore(false);
         } catch (e) {
             console.error(e);
         }
@@ -175,10 +175,10 @@ export const CallsTable = () => {
             <div className={s.wrapper}>
                 <div className={s.filters}>
                     <div className={s.inOutFilters}>
-                        <Select options={options} onChange={onChangeInOut} label={inOutLabel} />
+                        <Select options={options} onChange={onChangeInOut} label={inOutLabel} selected={inOut} />
                         {inOut && <IconButton
                             label={'Очистить фильтры'}
-                            onClick={() => setInOut('')}
+                            onClick={() => onChangeInOut('')}
                             Icon={CrossIcon}
                             color={'secondary'}
                         />}
