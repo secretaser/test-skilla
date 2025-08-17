@@ -50,11 +50,15 @@ export const CallsTable = () => {
         setOffset(0);
         setCalls([]);
         setHasMore(true);
+        console.log('nullify evrt');
     }, [dateStart, dateEnd, inOut, sortBy, order]);
 
     useEffect(() => {
-        if (hasMore) loadCalls();
-    }, [offset, dateStart, dateEnd, inOut, sortBy, order]);
+        if (hasMore) {
+            console.log('load calls');
+            loadCalls();
+        }
+    }, [offset]);
 
     const loadCalls = async () => {
         if (isLoading || !hasMore) return;
@@ -67,7 +71,7 @@ export const CallsTable = () => {
                 in_out: inOut,
                 sort_by: sortBy,
                 order: order,
-                offset, // используем offset вместо page
+                offset,
             });
 
             const withRatings = data.results.map(c => ({
